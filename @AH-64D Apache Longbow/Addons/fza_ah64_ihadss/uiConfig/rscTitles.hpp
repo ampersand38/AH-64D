@@ -1087,6 +1087,13 @@ class RscTitles
                         };
                     };
                     //JHCMS
+                    class canvas : fza_ah64_mapControl {
+                        idc = 367;
+                        x = 0.25;
+                        y = 0.25;
+                        w = 0.5;
+                        h = 0.5;
+                    }
                     class fza_ah64_raddisp_jhmcs
                     {
                     idc = 130;

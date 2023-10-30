@@ -128,6 +128,26 @@ if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && al
     0 cutrsc["fza_ah64_nvsoverlay", "PLAIN", 0.01, false];
 };
 
+private _canvasCtrl = (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 367;
+
+_canvasCtrl ctrlMapSetPosition [];
+_canvasCtrl ctrlMapAnimAdd [0, 0.001, [0,0]];
+ctrlMapAnimCommit _canvasCtrl;
+
+private _canvasPos = ctrlPosition _canvasCtrl;
+private _canvasPosCenter = _canvasCtrl ctrlMapScreenToWorld [_canvasPos#0+(_canvasPos#2)*0.5, _canvasPos#1+(_canvasPos#3)*0.5];
+private _canvasPosBottomRight = _canvasCtrl ctrlMapScreenToWorld [_canvasPos#0+_canvasPos#2, _canvasPos#1+_canvasPos#3];
+
+private _canvasCenter = _canvasPosCenter;
+private _canvasVect = _canvasPosBottomRight vectorDiff _canvasPosCenter;
+_canvasVect set [0, _canvasVect # 0 / 4 * 3];
+private _canvas = [_canvasCtrl, _canvasCenter, _canvasVect];
+
+[_heli, _canvas] call fza_ihadss_fnc_flightVelocityVector;
+
+private _posCenter = _ctrl ctrlMapScreenToWorld [0.5, 0.5];
+private _posBottomRight = _ctrl ctrlMapScreenToWorld [1, 1];
+
 //A3TI FUNCTIONS
 private _a3ti_vis = call A3TI_fnc_getA3TIVision;
 private _a3ti_brt = call A3TI_fnc_getA3TIBrightnessContrast;
